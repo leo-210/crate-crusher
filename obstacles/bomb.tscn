@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://bs4gu53euf4yt"]
+
+[ext_resource type="Script" path="res://obstacles/bomb.gd" id="1_i8asa"]
+[ext_resource type="Texture2D" uid="uid://bek65v8rj820a" path="res://assets/MiniJameGam.png" id="1_x8nga"]
+[ext_resource type="AudioStream" uid="uid://dm2rjhu05e50h" path="res://assets/explosion.wav" id="3_6bg2f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eimsd"]
+atlas = ExtResource("1_x8nga")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5jhp"]
+atlas = ExtResource("1_x8nga")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52cpn"]
+atlas = ExtResource("1_x8nga")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bjjm"]
+atlas = ExtResource("1_x8nga")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ujoe8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eimsd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5jhp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52cpn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bjjm")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"explode",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7g26b"]
+size = Vector2(16, 16)
+
+[node name="Bomb" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 0
+script = ExtResource("1_i8asa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ujoe8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7g26b")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6bg2f")
+pitch_scale = 0.88
+bus = &"Sfx"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

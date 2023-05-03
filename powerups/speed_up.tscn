@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmu0ixvwvlab6"]
+
+[ext_resource type="Script" path="res://powerups/speed_up.gd" id="1_1euko"]
+[ext_resource type="Texture2D" uid="uid://bokns5k547e4q" path="res://assets/powerups.png" id="2_6em05"]
+
+[sub_resource type="Animation" id="Animation_gtak2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_evw14"]
+resource_name = "default"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ubn7k"]
+_data = {
+"RESET": SubResource("Animation_gtak2"),
+"default": SubResource("Animation_evw14")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntxfa"]
+size = Vector2(11, 11)
+
+[node name="SpeedUp" type="AnimatableBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_1euko")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ubn7k")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_6em05")
+hframes = 4
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("RectangleShape2D_ntxfa")

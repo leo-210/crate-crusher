@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://clsbdbwi17s11"]
+
+[ext_resource type="Texture2D" uid="uid://bek65v8rj820a" path="res://assets/MiniJameGam.png" id="1_83tl7"]
+[ext_resource type="Script" path="res://obstacles/wooden_crate.gd" id="1_130qu"]
+[ext_resource type="AudioStream" uid="uid://cglqf253fvp23" path="res://assets/explosion(1).wav" id="3_2kmdh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nyux"]
+atlas = ExtResource("1_83tl7")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80kvg"]
+atlas = ExtResource("1_83tl7")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1r1tk"]
+atlas = ExtResource("1_83tl7")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2qhs"]
+atlas = ExtResource("1_83tl7")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lidn2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5nyux")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80kvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1r1tk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2qhs")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"detroyed",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nawst"]
+size = Vector2(16, 16)
+
+[node name="WoodenCrate" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 0
+script = ExtResource("1_130qu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lidn2")
+animation = &"detroyed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nawst")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.14
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2kmdh")
+volume_db = -4.489
+pitch_scale = 1.2
+bus = &"Sfx"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

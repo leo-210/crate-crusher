@@ -1,0 +1,216 @@
+[gd_scene load_steps=25 format=3 uid="uid://dgkrq7evrg60t"]
+
+[ext_resource type="Script" path="res://main/main.gd" id="1_2i0or"]
+[ext_resource type="Texture2D" uid="uid://bek65v8rj820a" path="res://assets/MiniJameGam.png" id="1_h1e0q"]
+[ext_resource type="PackedScene" uid="uid://cysdvww78buu5" path="res://player/player.tscn" id="2_38e4m"]
+[ext_resource type="PackedScene" uid="uid://clsbdbwi17s11" path="res://obstacles/wooden_crate.tscn" id="2_uhsle"]
+[ext_resource type="PackedScene" uid="uid://on2fkknri08r" path="res://obstacles/metal_crate.tscn" id="3_pt6g3"]
+[ext_resource type="PackedScene" uid="uid://bs4gu53euf4yt" path="res://obstacles/bomb.tscn" id="4_5hs26"]
+[ext_resource type="Texture2D" uid="uid://bgd3h55lnolsu" path="res://assets/healthbarunder.png" id="6_0skh4"]
+[ext_resource type="Texture2D" uid="uid://bty4uj4ack3p4" path="res://assets/healthbarover.png" id="7_n4wqf"]
+[ext_resource type="FontFile" uid="uid://cj74e6cws760j" path="res://assets/Retro Gaming.ttf" id="9_bp2du"]
+[ext_resource type="AudioStream" uid="uid://jmry6fuby5xn" path="res://assets/MainTheme.wav" id="10_mu616"]
+[ext_resource type="Texture2D" uid="uid://bokns5k547e4q" path="res://assets/powerups.png" id="10_ut0pd"]
+[ext_resource type="PackedScene" uid="uid://brpeecuwdw0pe" path="res://gui/pause_menu.tscn" id="11_krsrf"]
+[ext_resource type="Script" path="res://utils/camera.gd" id="12_av6tw"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vntc3"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_52by8"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qiudd"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kaw54"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g86b0"]
+polygon = PackedVector2Array(-8, -8, -8, 8, 8, 8, -8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_xkgm0"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pu8m3"]
+texture = ExtResource("1_h1e0q")
+3:3/0 = 0
+3:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:3/0/physics_layer_0/angular_velocity = 0.0
+4:3/0 = 0
+4:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:3/0/physics_layer_0/angular_velocity = 0.0
+4:2/0 = 0
+4:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_qiudd")
+4:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:2/0/physics_layer_0/angular_velocity = 0.0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:2/0 = 0
+5:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_xkgm0")
+5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:2/0/physics_layer_0/angular_velocity = 0.0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:1/0 = 0
+5:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_g86b0")
+5:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:1/0/physics_layer_0/angular_velocity = 0.0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0 = 0
+4:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_52by8")
+4:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:1/0/physics_layer_0/angular_velocity = 0.0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_vntc3")
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0 = 0
+5:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_kaw54")
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_gkqra"]
+scenes/1/scene = ExtResource("2_uhsle")
+scenes/2/scene = ExtResource("3_pt6g3")
+scenes/3/scene = ExtResource("4_5hs26")
+
+[sub_resource type="TileSet" id="TileSet_iqjsp"]
+occlusion_layer_0/light_mask = 1
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_pu8m3")
+sources/1 = SubResource("TileSetScenesCollectionSource_gkqra")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dxbs"]
+atlas = ExtResource("10_ut0pd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kv32"]
+atlas = ExtResource("10_ut0pd")
+region = Rect2(32, 0, 16, 16)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_2i0or")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_iqjsp")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 262144, 0, 65536, 262144, 1, 131072, 262144, 1, 196608, 262144, 1, 262144, 262144, 1, 327680, 262144, 1, 65537, 327680, 1, 65538, 327680, 1, 65539, 327680, 1, 131073, 196608, 3, 196609, 196608, 3, 262145, 196608, 3, 327681, 196608, 3, 327682, 196608, 3, 262146, 196608, 3, 196610, 196608, 3, 131074, 196608, 3, 131075, 196608, 3, 196611, 196608, 3, 262147, 262144, 3, 327683, 196608, 3, 1, 327680, 0, 2, 327680, 0, 3, 327680, 0, 393217, 196608, 3, 393218, 196608, 3, 393219, 196608, 3, 458752, 262144, 2, 393216, 262144, 1, 458753, 327680, 2, 458754, 327680, 2, 458755, 327680, 2, 393220, 196608, 3, 327684, 196608, 3, 262148, 196608, 3, 196612, 196608, 3, 131076, 196608, 3, 65540, 327680, 1, 4, 327680, 0, 196613, 262144, 3, 131077, 196608, 3, 65541, 327680, 1, 5, 327680, 0, 262149, 196608, 3, 327685, 196608, 3, 393221, 196608, 3, 458757, 327680, 2, 458756, 327680, 2)
+
+[node name="Player" parent="." instance=ExtResource("2_38e4m")]
+z_index = 2
+position = Vector2(36, 72)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 3.0
+value = 3.0
+texture_under = ExtResource("6_0skh4")
+texture_progress = ExtResource("7_n4wqf")
+
+[node name="PlaceHolder" type="Control" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_bp2du")
+theme_override_font_sizes/font_size = 11
+text = "Score : 0"
+
+[node name="PlaceHolder" type="Control" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlaceHolder" type="Control" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FastHammer" type="TextureRect" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture = SubResource("AtlasTexture_7dxbs")
+
+[node name="SpeedUp" type="TextureRect" parent="CanvasLayer/GUI/MarginContainer/VBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture = SubResource("AtlasTexture_4kv32")
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("11_krsrf")]
+z_index = 5
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(128, 64)
+script = ExtResource("12_av6tw")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Camera2D"]
+stream = ExtResource("10_mu616")
+autoplay = true
+bus = &"Music"
+
+[node name="ShakeCooldown" type="Timer" parent="Camera2D"]
+wait_time = 0.2
+one_shot = true
+
+[node name="ScoreTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="DeathTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="fast_hammer_end" from="Player" to="." method="_on_player_fast_hammer_end"]
+[connection signal="fast_hammer_start" from="Player" to="." method="_on_player_fast_hammer_start"]
+[connection signal="gained_health" from="Player" to="." method="_on_player_gained_health"]
+[connection signal="lost_health" from="Player" to="." method="_on_player_lost_health"]
+[connection signal="slow_camera" from="Player" to="." method="_on_player_slow_camera"]
+[connection signal="speed_up_end" from="Player" to="." method="_on_player_speed_up_end"]
+[connection signal="speed_up_start" from="Player" to="." method="_on_player_speed_up_start"]
+[connection signal="timeout" from="Camera2D/ShakeCooldown" to="Camera2D" method="_on_shake_cooldown_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

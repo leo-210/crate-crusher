@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://bv37jntsa8l8d"]
+
+[ext_resource type="FontFile" uid="uid://cj74e6cws760j" path="res://assets/Retro Gaming.ttf" id="1_hkour"]
+[ext_resource type="Script" path="res://utils/score_label.gd" id="1_m2pkb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yxwgb"]
+font = ExtResource("1_hkour")
+font_size = 8
+
+[sub_resource type="Animation" id="Animation_nqft4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+
+[sub_resource type="Animation" id="Animation_alqee"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.277392, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.241484, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bhgty"]
+_data = {
+"RESET": SubResource("Animation_nqft4"),
+"default": SubResource("Animation_alqee")
+}
+
+[node name="ScoreLabel" type="Node2D"]
+script = ExtResource("1_m2pkb")
+
+[node name="Label" type="Label" parent="."]
+offset_top = -8.0
+offset_right = 31.0
+offset_bottom = 9.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_hkour")
+theme_override_font_sizes/font_size = 11
+text = "1"
+label_settings = SubResource("LabelSettings_yxwgb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bhgty")
+}

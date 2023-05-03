@@ -1,0 +1,150 @@
+[gd_scene load_steps=11 format=3 uid="uid://i70qyok6rewx"]
+
+[ext_resource type="FontFile" uid="uid://cj74e6cws760j" path="res://assets/Retro Gaming.ttf" id="1_k65kt"]
+[ext_resource type="Script" path="res://gui/game_over.gd" id="2_iug2l"]
+[ext_resource type="Theme" uid="uid://b02se1uh16h1d" path="res://gui/theme.tres" id="2_xh3jc"]
+[ext_resource type="AudioStream" uid="uid://dcyny0n6v412a" path="res://assets/click(1).wav" id="4_7drql"]
+[ext_resource type="AudioStream" uid="uid://cv6r5rpcstcd8" path="res://assets/GameOverTheme.wav" id="5_skll1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t51n7"]
+font = ExtResource("1_k65kt")
+
+[sub_resource type="LabelSettings" id="LabelSettings_rqxpo"]
+font = ExtResource("1_k65kt")
+font_size = 8
+
+[sub_resource type="Animation" id="Animation_ejbqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_d20dg"]
+resource_name = "default"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 1.2),
+"transitions": PackedFloat32Array(2.73208, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4aa8u"]
+_data = {
+"RESET": SubResource("Animation_ejbqv"),
+"default": SubResource("Animation_d20dg")
+}
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_xh3jc")
+script = ExtResource("2_iug2l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0666667, 0.027451, 0.121569, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_t51n7")
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Score :"
+label_settings = SubResource("LabelSettings_rqxpo")
+horizontal_alignment = 1
+
+[node name="TryAgain" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Try again"
+
+[node name="Menu" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4aa8u")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(125, 75)
+stream = ExtResource("4_7drql")
+volume_db = -16.0
+pitch_scale = 0.8
+bus = &"Sfx"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_skll1")
+autoplay = true
+bus = &"Music"
+
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/TryAgain" to="." method="_click"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/TryAgain" to="." method="_on_try_again_pressed"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Menu" to="." method="_click"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Menu" to="." method="_on_menu_pressed"]

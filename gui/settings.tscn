@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://dplq73h303b2h"]
+
+[ext_resource type="Theme" uid="uid://b02se1uh16h1d" path="res://gui/theme.tres" id="1_k74wd"]
+[ext_resource type="Script" path="res://gui/settings.gd" id="2_ckabc"]
+[ext_resource type="FontFile" uid="uid://cj74e6cws760j" path="res://assets/Retro Gaming.ttf" id="2_htx4m"]
+[ext_resource type="AudioStream" uid="uid://dcyny0n6v412a" path="res://assets/click(1).wav" id="4_yr60b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cmj3l"]
+font = ExtResource("2_htx4m")
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_jaxdi"]
+font = ExtResource("2_htx4m")
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_axmgd"]
+font_size = 4
+
+[node name="Settings" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_k74wd")
+script = ExtResource("2_ckabc")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 13
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "          Settings          "
+label_settings = SubResource("LabelSettings_cmj3l")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music  "
+label_settings = SubResource("LabelSettings_jaxdi")
+
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 75.0
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Sound "
+label_settings = SubResource("LabelSettings_jaxdi")
+
+[node name="SoundSlider" type="HSlider" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 75.0
+
+[node name="CheckBox" type="CheckButton" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Screen Shake"
+
+[node name="Label2" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_axmgd")
+
+[node name="Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
+[node name="SoundTimer" type="Timer" parent="."]
+wait_time = 0.4
+
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_yr60b")
+volume_db = 1.0
+pitch_scale = 0.8
+bus = &"Sfx"
+
+[connection signal="drag_ended" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MusicSlider" to="." method="_on_music_slider_drag_ended"]
+[connection signal="drag_started" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MusicSlider" to="." method="_on_music_slider_drag_started"]
+[connection signal="drag_ended" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/SoundSlider" to="." method="_on_sound_slider_drag_ended"]
+[connection signal="drag_started" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/SoundSlider" to="." method="_on_sound_slider_drag_started"]
+[connection signal="mouse_entered" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CheckBox" to="." method="_click"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CheckBox" to="." method="_click"]
+[connection signal="toggled" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="mouse_entered" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_click"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_click"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="SoundTimer" to="." method="_on_sound_timer_timeout"]

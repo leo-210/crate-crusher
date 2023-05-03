@@ -1,0 +1,174 @@
+[gd_scene load_steps=18 format=3 uid="uid://cysdvww78buu5"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_1bblk"]
+[ext_resource type="Texture2D" uid="uid://bek65v8rj820a" path="res://assets/MiniJameGam.png" id="2_w7fag"]
+[ext_resource type="AudioStream" uid="uid://cqx74iss7ivfq" path="res://assets/pickupCoin.wav" id="3_pvmr4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2fvy"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjvc3"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4dkr"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p338"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n7jg"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvq78"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dw0q"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14rp6"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qul3f"]
+atlas = ExtResource("2_w7fag")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_felnh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2fvy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjvc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4dkr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p338")
+}],
+"loop": false,
+"name": &"hammer",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n7jg")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvq78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dw0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14rp6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qul3f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mud2n"]
+radius = 2.0
+height = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyuf4"]
+size = Vector2(8.5, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bqqgd"]
+size = Vector2(4, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdgyt"]
+size = Vector2(6, 5)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_1bblk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_felnh")
+
+[node name="DamageTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_mud2n")
+
+[node name="HammerCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Range" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+position = Vector2(5.75, -1.5)
+shape = SubResource("RectangleShape2D_dyuf4")
+debug_color = Color(0.988235, 0, 0.309804, 0.313726)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Range"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_bqqgd")
+debug_color = Color(0.988235, 0, 0.309804, 0.313726)
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="CollectionBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectionBox"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_kdgyt")
+debug_color = Color(0, 0.647059, 0.25098, 0.419608)
+
+[node name="HeartAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_pvmr4")
+volume_db = 2.244
+pitch_scale = 0.89
+bus = &"Sfx"
+
+[node name="SpeedUpTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="FastHammerCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="HammerCooldown" to="." method="_on_hammer_cooldown_timeout"]
+[connection signal="timeout" from="HitTimer" to="." method="_hit"]
+[connection signal="timeout" from="SpeedUpTimer" to="." method="_on_speed_up_timer_timeout"]
+[connection signal="timeout" from="FastHammerCooldown" to="." method="_on_fast_hammer_cooldown_timeout"]
