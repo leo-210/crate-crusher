@@ -4,4 +4,4 @@ A little godot game made for the [Mini Jame Gam #17](https://itch.io/jam/mini-ja
 
 The theme was "Escape the room", and a "Hammer" as a special item was counted as a bonus. 
 
-You try it online on [itch.io](https://leo21.itch.io/crate-crusher).
+You can try it online on [itch.io](https://leo21.itch.io/crate-crusher).
